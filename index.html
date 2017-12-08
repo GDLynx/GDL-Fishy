@@ -99,25 +99,29 @@ body {
             ctx.fillRect(ball.position.x, ball.position.y, ball.width, ball.height);
             ctx.fillRect(collectable.position.x, collectable.position.y, collectable.width, collectable.height);
 
-            /// Collision with Window Border / Boundary
+		/// Collision with Window Border / Boundary
             if (ball.position.x > canvasWidth && ball.velocity.x > 0)
     		{
-    		   ball.position.x = canvasWidth-ball.width;
-               alert("Touched edge of screen");
+                ball.position.x -= ball.velocity.x;
+    		    // ball.position.x = canvasWidth-ball.width;
+                alert("Touched edge of screen");
     		}
     		if(ball.position.x < 0 && ball.velocity.x < 0)
     		{
-    			ball.position.x = 0;
+                ball.position.x += ball.velocity.x;
+    			// ball.position.x = 0;
                 alert("Touched edge of screen");
     		}
     		if(ball.position.y >= canvasHeight && ball.velocity.y > 0)
     		{
-    		   ball.position.y = canvasHeight-ball.height;
+                ball.position.y -= ball.velocity.y;
+    		   // ball.position.y = canvasHeight-ball.height;
                alert("Touched edge of screen");
     		}
     		if (ball.position.y < 0 && ball.velocity.y < 0)
     		{
-    		   ball.position.y = 0;
+                ball.position.y += ball.velocity.y;
+    		   // ball.position.y = 0;
                alert("Touched edge of screen");
     		}
 
