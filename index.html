@@ -22,13 +22,13 @@ body {
     <canvas id="canvas" onload="init()" width="400" height="400">Canvas not supported</canvas>
 
 	<script>
-
 console.log("Running script");
 var canvas, ctx;
 canvas = document.getElementById("canvas");
 ctx = canvas.getContext("2d");
 
 var ball;
+var collectable; 
 var canvasWidth;
 var canvasHeight;
 
@@ -88,8 +88,9 @@ function update()
         console.log("Updated function called");
 
         /// Spawn Collectable
-        var collectable = new Collectable();
-
+        // var collectable = new Collectable();
+        collectable = new Collectable(); 
+        
         /// Update Ball's Movement
         ball.position.x += ball.velocity.x;
         ball.position.y += ball.velocity.y;
