@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Fish lk  ame</title>
+    <title>Gyro_Ball</title>
 	<style>
 
 body {
@@ -30,7 +30,7 @@ body {
     <div id="ball"></div>  -->
 
 <body>
-    <canvas id="canvas" width="400" height="400">Canvas not supported</canvas>
+    <canvas id="canvas" onload="init()" width="400" height="400">Canvas not supported</canvas>
 
 	<script>
 
@@ -58,8 +58,8 @@ if (!window.requestAnimationFrame) {
 
 function Collectable() {
     this.position = {
-        x: Math.random() * 10,
-        y: Math.random() * 10 
+        x: Math.random() * 10;
+        y: Math.random() * 10;
     }
     ctx.fillRect(this.position.x, this.position.y, 60, 60);
 }
@@ -87,8 +87,8 @@ function init()
 		window.addEventListener("deviceorientation", function(event)
 		{
             /// Get Device Orientation
-			ball.velocity.y = Math.round(event.beta);
-			ball.velocity.x = Math.round(event.gamma);
+			ball.velocity.y = Math.round(event.beta),
+			ball.velocity.x = Math.round(event.gamma)
         })
     };
     update();
@@ -99,7 +99,7 @@ function update()
         console.log("Updated function called");
 
         /// Spawn Collectable
-        // var collectable = new Collectable();
+        var collectable = new Collectable();
 
 
         /// Update Ball's Movement
@@ -108,8 +108,9 @@ function update()
 
         /// Draw Ball
         ctx.fillRect(ball.position.x, ball.position.y, 100, 100);
-//        ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+        // ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 
+        /*
         /// Collision with Window Border / Boundary
         if (ball.position.x > (canvasWidth-100) && ball.velocity.x > 0)
 		{
@@ -136,14 +137,14 @@ function update()
 		}
 
         /// Collision with Collectable
-        /*if (ball.position.y == collectable.position.y &&
+        if (ball.position.y == collectable.position.y &&
             ball.position.y == collectable.position.y) {
 
             alert("Collected");
-            console.log("Collision");  
+            console.log("Collision");
         } else {
             console.log("No collision");
-        } */ 
+        } */
 
     requestAnimationFrame(update); // KEEP ANIMATING
 }
