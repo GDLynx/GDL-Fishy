@@ -108,7 +108,7 @@ function update()
 
         /// Draw Ball
         ctx.fillRect(ball.position.x, ball.position.y, 100, 100);
-        ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+//        ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 
         /// Collision with Window Border / Boundary
         if (ball.position.x > (canvasWidth-100) && ball.velocity.x > 0)
