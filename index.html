@@ -58,8 +58,8 @@ if (!window.requestAnimationFrame) {
 
 function Collectable() {
     this.position = {
-        x: Math.random() * 10;
-        y: Math.random() * 10;
+        x: Math.random() * 10,
+        y: Math.random() * 10 
     }
     ctx.fillRect(this.position.x, this.position.y, 60, 60);
 }
