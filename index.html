@@ -22,14 +22,14 @@ body {
     <canvas id="canvas" onload="init()" width="400" height="400">Canvas not supported</canvas>
 
 	<script>
-// console.log("Running script");
+    // console.log("Running script");
     var canvas, ctx;
     canvas = document.getElementById("canvas");
     ctx = canvas.getContext("2d");
     var ball;
     var collectable;
-    var canvasWidth;
-    var canvasHeight;
+    var canvasWidth = 400;
+    var canvasHeight = 400;
 
     /// Unsure what this does
     if (!window.requestAnimationFrame) {
@@ -46,11 +46,12 @@ body {
 
     function Collectable() {
         this.position = {
-            x: Math.random() * 10,
-            y: Math.random() * 10
-        }
-        ctx.fillRect(this.position.x, this.position.y, 60, 60);
-	alert("Collectable!"); 
+            x: Math.random() * canvasWidth,
+            y: Math.random() * canvasHeight
+        };
+        this.width = 30;
+        this.height = 30;
+        // ctx.fillRect(this.position.x, this.position.y, 60, 60);
     }
 
     function init()
@@ -64,6 +65,8 @@ body {
     	    this.position = {
                 x:0, y:0
             }
+            this.width = 30;
+            this.height = 30;
             this.score = 0;
         }
         ball = new Ball();
@@ -84,16 +87,17 @@ body {
     {
             //console.log("Updated function called");
             /// Spawn Collectable
-            var collectable = new Collectable();
-            // collectable = new Collectable();
+            // var collectable = new Collectable();
+            collectable = new Collectable();
 
             /// Update Ball's Movement
             ball.position.x += ball.velocity.x;
             ball.position.y += ball.velocity.y;
 
             /// Draw Ball
-	 	ctx.clearRect(0, 0, canvasWidth, canvasHeight);
-            ctx.fillRect(ball.position.x, ball.position.y, 100, 100);
+            ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+            ctx.fillRect(ball.position.x, ball.position.y, ball.width, ball.height);
+            ctx.fillRect(collectable.position.x, collectable.position.y, collectable.width, collectable.height);
 
             /// Collision with Window Border / Boundary
             if (ball.position.x > (canvasWidth-100) && ball.velocity.x > 0)
@@ -117,8 +121,10 @@ body {
                alert("Touched edge of screen");
     		}
             /// Collision with Collectable
-            if (ball.position.y == collectable.position.y &&
-                ball.position.y == collectable.position.y) {
+            if (ball.position.x < collectable.position.x + collectable.width &&
+                    ball.position.x + ball.width > collectable.position.x &&
+                    ball.position.y < collectable.position.y + collectable.height &&
+   ball.height + ball.position.y > collectable.position.y) {
                 alert("Collected");
                 console.log("Collision");
             } else {
