@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Fish</title>
+    <title>Gyro_Ball</title>
 	<style>
 
 body {
@@ -30,11 +30,11 @@ body {
     <div id="ball"></div>  -->
 
 <body>
-    <canvas id="canvas" width="400" height="400">Canvas not supported</canvas>
+    <canvas id="canvas" onload="init()" width="400" height="400">Canvas not supported</canvas>
 
 	<script>
 
-console.log("Running script"); 
+console.log("Running script");
 var canvas, ctx;
 canvas = document.getElementById("canvas");
 ctx = canvas.getContext("2d");
@@ -55,8 +55,7 @@ if (!window.requestAnimationFrame) {
         }
     })();
 }
-init(); 
-		
+
 function init()
 {
     console.log("Init function called");
@@ -96,29 +95,32 @@ function update()
 
         /// Draw Ball
         ctx.fillRect(ball.position.x, ball.position.y, 100, 100);
+        ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 
         /// Collision with Window Border / Boundary
-        /*
-        if(ball.position.x > (w-100) && ball.velocity.x > 0)
-			{
-			   ball.position.x = w-100;
-			}
+        if (ball.position.x > (canvasWidth-100) && ball.velocity.x > 0)
+		{
+		   // ball.position.x = w-100;
+           alert("Touched edge of screen");
+		}
 
-			if(ball.position.x < 0 && ball.velocity.x < 0)
-			{
-				ball.position.x = 0;
-			}
+		if(ball.position.x < 0 && ball.velocity.x < 0)
+		{
+			// ball.position.x = 0;
+            alert("Touched edge of screen");
+		}
 
-			if(ball.position.y > (h-100) && ball.velocity.y > 0)
-			{
-			   ball.position.y = h-100;
-			}
+		if(ball.position.y > (canvasHeight-100) && ball.velocity.y > 0)
+		{
+		   // ball.position.y = h-100;
+           alert("Touched edge of screen");
+		}
 
-			if (ball.position.y < 0 && ball.velocity.y < 0)
-			{
-			   ball.position.y = 0;
-			}
-            */
+		if (ball.position.y < 0 && ball.velocity.y < 0)
+		{
+		   // ball.position.y = 0;
+           alert("Touched edge of screen");
+		}
 
     requestAnimationFrame(update); // KEEP ANIMATING
 }
