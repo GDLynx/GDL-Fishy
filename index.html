@@ -1,0 +1,126 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Gyro_Ball</title>
+	<style>
+
+body {
+	padding:0;
+	margin:0;
+    background-color: #32c9d6;
+}
+
+#ball
+{
+	-webkit-transition: all;
+	transition: all;
+	position:absolute;
+	width:100px;
+	height:100px;
+	border-radius: 50%;
+	background: white;
+}
+	</style>
+    <!--
+	<link rel="stylesheet" href="style.css">
+    <script src="main.js"></script> -->
+</head>
+<!-- <body onload="init()">
+    <div id="ball"></div>  -->
+
+<body>
+    <canvas id="canvas" onload="init()" width="400" height="400">Canvas not supported</canvas>
+
+	<script>
+
+console.log("Running script"); 
+var canvas, ctx;
+canvas = document.getElementById("canvas");
+ctx = canvas.getContext("2d");
+
+var ball;
+var canvasWidth;
+var canvasHeight;
+
+/// Unsure what this does
+if (!window.requestAnimationFrame) {
+    window.requestAnimationFrame = (function() {
+        return window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.oRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        function(/* function frameRequestCallback */ callback, /*DOMElement Element */ element) {
+            window.setTimeout(callback, 1000 / 60);
+        }
+    })();
+}
+
+function init()
+{
+    console.log("Init function called");
+
+    function Ball() {
+        this.velocity = {
+            x:0, y:0
+        }
+	    this.position = {
+            x:0, y:0
+        }
+    }
+
+    ball = new Ball();
+	canvasWidth = window.innerWidth;
+    canvasHeight = window.innerHeight;
+
+    /// Check the device's orientation is accessible
+    if (window.DeviceOrientationEvent) {
+		window.addEventListener("deviceorientation", function(event)
+		{
+            /// Get Device Orientation
+			ball.velocity.y = Math.round(event.beta);
+			ball.velocity.x = Math.round(event.gamma);
+        })
+    };
+    update();
+}
+
+function update()
+{
+        console.log("Updated function called");
+
+        /// Update Ball's Movement
+        ball.position.x += ball.velocity.x;
+        ball.position.y += ball.velocity.y;
+
+        /// Draw Ball
+        ctx.fillRect(ball.position.x, ball.position.y, 100, 100);
+
+        /// Collision with Window Border / Boundary
+        /*
+        if(ball.position.x > (w-100) && ball.velocity.x > 0)
+			{
+			   ball.position.x = w-100;
+			}
+
+			if(ball.position.x < 0 && ball.velocity.x < 0)
+			{
+				ball.position.x = 0;
+			}
+
+			if(ball.position.y > (h-100) && ball.velocity.y > 0)
+			{
+			   ball.position.y = h-100;
+			}
+
+			if (ball.position.y < 0 && ball.velocity.y < 0)
+			{
+			   ball.position.y = 0;
+			}
+            */
+
+    requestAnimationFrame(update); // KEEP ANIMATING
+}
+	</script>
+</body>
+</html>
