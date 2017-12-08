@@ -56,6 +56,14 @@ if (!window.requestAnimationFrame) {
     })();
 }
 
+function Collectable() {
+    this.position = {
+        x: Math.random() * 10;
+        y: Math.random() * 10;
+    }
+    ctx.fillRect(this.position.x, this.position.y, 60, 60);
+}
+
 function init()
 {
     console.log("Init function called");
@@ -67,6 +75,7 @@ function init()
 	    this.position = {
             x:0, y:0
         }
+        this.score = 0;
     }
 
     ball = new Ball();
@@ -88,6 +97,10 @@ function init()
 function update()
 {
         console.log("Updated function called");
+
+        /// Spawn Collectable
+        var collectable = new Collectable();
+
 
         /// Update Ball's Movement
         ball.position.x += ball.velocity.x;
@@ -121,6 +134,16 @@ function update()
 		   // ball.position.y = 0;
            alert("Touched edge of screen");
 		}
+
+        /// Collision with Collectable
+        if (ball.position.y == collectable.position.y &&
+            ball.position.y == collectable.position.y) {
+
+            alert("Collected");
+            console.log("Collision");  
+        } else {
+            console.log("No collision");
+        }
 
     requestAnimationFrame(update); // KEEP ANIMATING
 }
