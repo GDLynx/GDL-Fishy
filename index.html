@@ -30,7 +30,7 @@ body {
     <div id="ball"></div>  -->
 
 <body>
-    <canvas id="canvas" onload="init()" width="400" height="400">Canvas not supported</canvas>
+    <canvas id="canvas" width="400" height="400">Canvas not supported</canvas>
 
 	<script>
 
@@ -55,7 +55,8 @@ if (!window.requestAnimationFrame) {
         }
     })();
 }
-
+init(); 
+		
 function init()
 {
     console.log("Init function called");
