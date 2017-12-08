@@ -19,10 +19,10 @@ body {
     <div id="ball"></div>  -->
 
 <body>
-    <canvas id="canvas" onload="init()" width="400" height="400">Canvas not supported</canvas>
+    <canvas id="canvas" width="400" height="400">Canvas not supported</canvas>
 
 	<script>
-    // console.log("Running script");
+        // console.log("Running script");
     var canvas, ctx;
     canvas = document.getElementById("canvas");
     ctx = canvas.getContext("2d");
@@ -100,26 +100,27 @@ body {
             ctx.fillRect(collectable.position.x, collectable.position.y, collectable.width, collectable.height);
 
             /// Collision with Window Border / Boundary
-            if (ball.position.x > (canvasWidth-100) && ball.velocity.x > 0)
+            if (ball.position.x > canvasWidth && ball.velocity.x > 0)
     		{
-    		   // ball.position.x = w-100;
+    		   ball.position.x = canvasWidth-ball.width;
                alert("Touched edge of screen");
     		}
     		if(ball.position.x < 0 && ball.velocity.x < 0)
     		{
-    			// ball.position.x = 0;
+    			ball.position.x = 0;
                 alert("Touched edge of screen");
     		}
-    		if(ball.position.y > (canvasHeight-100) && ball.velocity.y > 0)
+    		if(ball.position.y >= canvasHeight && ball.velocity.y > 0)
     		{
-    		   // ball.position.y = h-100;
+    		   ball.position.y = canvasHeight-ball.height;
                alert("Touched edge of screen");
     		}
     		if (ball.position.y < 0 && ball.velocity.y < 0)
     		{
-    		   // ball.position.y = 0;
+    		   ball.position.y = 0;
                alert("Touched edge of screen");
     		}
+
             /// Collision with Collectable
             if (ball.position.x < collectable.position.x + collectable.width &&
                     ball.position.x + ball.width > collectable.position.x &&
@@ -133,6 +134,7 @@ body {
         requestAnimationFrame(update); // KEEP ANIMATING
     }
     init();
+
 		</script>
 </body>
 </html>
