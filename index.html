@@ -33,6 +33,7 @@ body {
 
     /// Initiallize objects (in global scope)
     var fish;
+    var collectable = [];
 
     /// Unsure what this does
     if (!window.requestAnimationFrame) {
@@ -60,37 +61,59 @@ body {
 
         /// Create Object Instances (unsure if this should be here or in "update")
         fish = new Fish();
-        //collectable = new Collectable();
+
+        //for (var collectableInstance = 0; collectableInstance < collectable.length; i)
+        for (var i = 0; i < 3; i++) {
+            collectable[i] = new Collectable();
+            console.log(collectable.length);
+        }
 
         /// Begin Game
         update();
     }
 
     function update() {
-        console.log("Update function begins");
+        // console.log("Update function begins");
 
         /// Create Object Instances
         //fish = new Fish();
 
         /// Move / Update / Trigger Behavior for Object/s
-        fish.move(); 
+        fish.move();
+        for (var i = 0; i < collectable.length; i++) {
+            collectable[i].move();
+        }
 
         /// Clear canvas + draw (to an empty canvas)
         ctx.clearRect(0, 0, canvasWidth, canvasHeight);
         fish.draw();
+        for (var i = 0; i < collectable.length; i++) {
+            collectable[i].draw();
+        }
+        /// Collision Check
+        /*
+        fish.intersects(collectable);
+        if (fish.intersects(collectable)) {
+            //alert("COLL");
+        }
+        */
+        for (var i = 0; i < collectable.length; i++) {
+            fish.intersects(collectable[i]);
+            if (fish.intersects(collectable[i])) {
+                alert("COLL: " + "Index: " + i + " " + collectable.length);
+            }
+        }
 
-        ///
-
-        console.log("Requesting animation frame");
+        // console.log(collectable.length);
+        // console.log("Requesting animation frame");
         requestAnimationFrame(update); // Keep animating
-    } 
+    }
 
     /// Object/s (Constructor functions) Defintions
-
     function Fish() {
 
         this.velocity = {
-            x:0, y:0
+            x:30, y:60
         }
         this.position = {
             x:0, y:0
@@ -111,8 +134,17 @@ body {
             this.position.y += this.velocity.y;
         }
 
-        this.intersects = function() {
-
+        this.intersects = function(other) {
+            if (this.position.x < other.position.x + other.width &&
+                    this.position.x + this.width > other.position.x &&
+                    this.position.y < other.position.y + other.height &&
+                    this.height + this.position.y > other.position.y) {
+                // alert("Collected");
+                console.log("Collision");
+                return true;
+            } else {
+                //console.log("No collision");
+            }
         }
 
         /// Draw Object
@@ -121,8 +153,35 @@ body {
         }
     }
 
+    function Collectable() {
+        this.position = {
+            x: Math.random() * canvasWidth,
+            y: Math.random() * canvasHeight
+        };
+        this.width = 30;
+        this.height = 30;
+
+        /// Draw Object
+        this.draw = function() {
+            ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
+            ctx.fill();
+            ctx.fillStyle = "green";
+        }
+
+        /// Move / Position Object
+        this.move = function() {
+            if (this.position.x >= canvasWidth) {
+                this.position.x = 0 + this.width;
+                this.position.y = Math.random() * canvasHeight;
+            } else {
+                this.position.x += 1;
+            }
+        }
+    }
+
     /// Run Initiallization function which will begin the game
     init();
+
 	</script>
 </body>
 </html>
