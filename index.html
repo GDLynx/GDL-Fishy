@@ -22,14 +22,17 @@ body {
     <canvas id="canvas" width="400" height="400">Canvas not supported</canvas>
 
 	<script>
-        // console.log("Running script");
-    var canvas, ctx;
-    canvas = document.getElementById("canvas");
-    ctx = canvas.getContext("2d");
-    var ball;
-    var collectable;
-    var canvasWidth = 400;
-    var canvasHeight = 400;
+      
+    /// Get Canvas & Context
+    var canvas = document.getElementById("canvas");
+    var ctx = canvas.getContext("2d");
+
+    /// Global variables
+    var canvasWidth = 400, canvasHeight = 400;
+
+
+    /// Initiallize objects (in global scope)
+    var fish;
 
     /// Unsure what this does
     if (!window.requestAnimationFrame) {
@@ -38,107 +41,88 @@ body {
             window.mozRequestAnimationFrame ||
             window.oRequestAnimationFrame ||
             window.msRequestAnimationFrame ||
-            function(/* function frameRequestCallback */ callback, /*DOMElement Element */ element) {
+            function(/* function frameRequestCallback */ callback, /*DOMElement Element */  element) {
                 window.setTimeout(callback, 1000 / 60);
             }
         })();
     }
 
-    function Collectable() {
-        this.position = {
-            x: Math.random() * canvasWidth,
-            y: Math.random() * canvasHeight
-        };
-        this.width = 30;
-        this.height = 30;
-        // ctx.fillRect(this.position.x, this.position.y, 60, 60);
-    }
 
-    function init()
-    {
-        console.log("Init function called");
-        function Ball() {
-            console.log("Ball here");
-            this.velocity = {
-                x:0, y:0
-            }
-    	    this.position = {
-                x:0, y:0
-            }
-            this.width = 30;
-            this.height = 30;
-            this.score = 0;
-        }
-        ball = new Ball();
-    	canvasWidth = window.innerWidth;
-        canvasHeight = window.innerHeight;
+    function init() {
         /// Check the device's orientation is accessible
         if (window.DeviceOrientationEvent) {
-    		window.addEventListener("deviceorientation", function(event)
-    		{
-                /// Get Device Orientation
-    			ball.velocity.y = Math.round(event.beta),
-    			ball.velocity.x = Math.round(event.gamma)
+            window.addEventListener("deviceorientation", function(event)
+            {
+                /// Get Device Orientation (for Fish)
+                fish.getDeviceOrientation();
             })
         };
+
+        /// Create Object Instances (unsure if this should be here or in "update")
+        fish = new Fish();
+        //collectable = new Collectable();
+
+        /// Begin Game
         update();
     }
-    function update()
-    {
-            //console.log("Updated function called");
-            /// Spawn Collectable
-            // var collectable = new Collectable();
-            collectable = new Collectable();
 
-            /// Update Ball's Movement
-            ball.position.x += ball.velocity.x;
-            ball.position.y += ball.velocity.y;
+    function update() {
+        console.log("Update function begins");
 
-            /// Draw Ball
-            ctx.clearRect(0, 0, canvasWidth, canvasHeight);
-            ctx.fillRect(ball.position.x, ball.position.y, ball.width, ball.height);
-            ctx.fillRect(collectable.position.x, collectable.position.y, collectable.width, collectable.height);
+        /// Create Object Instances
+        //fish = new Fish();
 
-		/// Collision with Window Border / Boundary
-            if (ball.position.x > canvasWidth && ball.velocity.x > 0)
-    		{
-                ball.position.x -= ball.velocity.x;
-    		    // ball.position.x = canvasWidth-ball.width;
-                alert("Touched edge of screen");
-    		}
-    		if(ball.position.x < 0 && ball.velocity.x < 0)
-    		{
-                ball.position.x += ball.velocity.x;
-    			// ball.position.x = 0;
-                alert("Touched edge of screen");
-    		}
-    		if(ball.position.y >= canvasHeight && ball.velocity.y > 0)
-    		{
-                ball.position.y -= ball.velocity.y;
-    		   // ball.position.y = canvasHeight-ball.height;
-               alert("Touched edge of screen");
-    		}
-    		if (ball.position.y < 0 && ball.velocity.y < 0)
-    		{
-                ball.position.y += ball.velocity.y;
-    		   // ball.position.y = 0;
-               alert("Touched edge of screen");
-    		}
+        /// Move / Update / Trigger Behavior for Object/s
+        fish.move(); 
 
-            /// Collision with Collectable
-            if (ball.position.x < collectable.position.x + collectable.width &&
-                    ball.position.x + ball.width > collectable.position.x &&
-                    ball.position.y < collectable.position.y + collectable.height &&
-   ball.height + ball.position.y > collectable.position.y) {
-                alert("Collected");
-                console.log("Collision");
-            } else {
-                //console.log("No collision");
-            }
-        requestAnimationFrame(update); // KEEP ANIMATING
+        /// Clear canvas + draw (to an empty canvas)
+        ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+        fish.draw();
+
+        ///
+
+        console.log("Requesting animation frame");
+        requestAnimationFrame(update); // Keep animating
+    } 
+
+    /// Object/s (Constructor functions) Defintions
+
+    function Fish() {
+
+        this.velocity = {
+            x:0, y:0
+        }
+        this.position = {
+            x:0, y:0
+        }
+        this.width = 30;
+        this.height = 30;
+        this.score = 0;
+
+        /// Get Device Orientation
+        this.getDeviceOrientation = function() {
+            this.velocity.y = Math.round(event.beta);
+            this.velocity.x = Math.round(event.gamma);
+        }
+
+        /// Move Object
+        this.move = function() { // should collision / intersection checking occur here?
+            this.position.x += this.velocity.x;
+            this.position.y += this.velocity.y;
+        }
+
+        this.intersects = function() {
+
+        }
+
+        /// Draw Object
+        this.draw = function() {
+            ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
+        }
     }
-    init();
 
-		</script>
+    /// Run Initiallization function which will begin the game
+    init();
+	</script>
 </body>
 </html>
