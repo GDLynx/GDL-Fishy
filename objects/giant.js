@@ -1,4 +1,5 @@
 /// Whale / Shark
+var whaleOrShark = Math.random() * 10; // > 5 = whale, < 5 = shark
 function Giant() {
     this.position = {
         x: 0,
@@ -15,7 +16,11 @@ function Giant() {
         ctx.fill();
         */
         var img = new Image();   // Create new img element
-        img.src = './images/whale.png';
+        if (whaleOrShark >= 5) {
+            img.src = './images/whale.png';
+        } else {
+            img.src = './images/shark.png'; 
+        }
         ctx.drawImage(img, this.position.x, this.position.y, this.width, this.height);
 
         /// Particles

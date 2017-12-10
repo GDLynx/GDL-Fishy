@@ -17,7 +17,11 @@ function Collectable() {
         ctx.fill();
         */
         var img = new Image();   // Create new img element
-        img.src = './images/fish.png';
+            if (this.dir >= 5) {
+                img.src = './images/fish.png';
+            } else {
+                img.src = './images/fish-forward.png'; 
+            }
         ctx.drawImage(img, this.position.x, this.position.y, this.width, this.height);
     }
 
