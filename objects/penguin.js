@@ -82,6 +82,7 @@ function Penguin() {
     }
     this.drawScore = function() {
         ctx.font = "32px Arial";
+        ctx.fillStyle = "black";
         ctx.fillText("Score: " + this.score, this.position.x, 40);
     }
 }
