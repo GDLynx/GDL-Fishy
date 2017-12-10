@@ -8,6 +8,7 @@ var canvasWidth = 400, canvasHeight = 400;
 
 /// Initiallize objects (in global scope)
 var penguin;
+var alteredSpeed = 0; // used in conjuction with eel's shock
 var squid = [];
 var eel = [];
 var collectable = [];
@@ -69,6 +70,7 @@ function init() {
 
 function update() {
 
+
     /// Move / Update / Trigger Behavior for Object/s
     penguin.move();
     for (var i = 0; i < collectable.length; i++) {
@@ -83,6 +85,7 @@ function update() {
 
     /// Clear canvas + draw (to an empty canvas)
     ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+    ctx.fillText("X Y: " + penguin.velocity.x + " " + penguin.velocity.y, 32, 200);
     penguin.draw();
     penguin.drawScore();
     for (var i = 0; i < collectable.length; i++) {
@@ -106,11 +109,13 @@ function update() {
     for (var e = 0; e < eel.length; e++) {
         if (eel[e].intersects(penguin)) {
             eel[e].shock();
-            alteredSpeed = 6;
+            alteredSpeed = 60;
+            console.log("Shocked");
         } else {
-            alteredSpeed = 0; 
+            alteredSpeed = 0;
         }
     }
+    ctx.fillText("AlteredSpeed: " + alteredSpeed, 32, 32); // for testing
     for (var i = 0; i < collectable.length; i++) { // between Penguin & Collectable objects
         penguin.intersects(collectable[i]);
         if (penguin.intersects(collectable[i]) && collectable.length >= 0) {
