@@ -14,7 +14,7 @@ function Collectable() {
         ctx.fillStyle = "green";
         ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
         ctx.fill();
-    }
+    } 
 
     /// Move / Position Object
     this.move = function() {
