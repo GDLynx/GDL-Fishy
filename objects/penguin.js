@@ -32,7 +32,7 @@ function Penguin() {
         /// If this exits canvas = game-over
         if (this.position.x > canvasWidth || this.position.x < 0 ||
             this.position.y > canvasHeight || this.position.y < 0) {
-                gameOver(); 
+                gameOver();
         }
     }
 
@@ -51,11 +51,33 @@ function Penguin() {
 
     /// Draw Object
     this.draw = function() {
+
+        var img = new Image();   // Create new img element
+        img.src = './images/penguin.png';
         if (this.score > 3 && this.score < 30) {
+            /*
             ctx.fillRect(this.position.x, this.position.y,
             this.width * this.score/3, this.height * this.score/3);
+            */
+            ctx.drawImage(img, this.position.x, this.position.y, this.width * this.score/3,
+                 this.height * this.score / 3);
         } else {
-            ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
+            // ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
+            ctx.drawImage(img, this.position.x, this.position.y, this.width, this.height);
+        }
+
+
+        /// Particles
+        for (var i = 0; i < 10; i++) {
+            ctx.fillStyle = "cyan";
+            ctx.fillRect(this.position.x + this.width * Math.random() * 3,
+                this.position.y - this.height * Math.random() * 3, 13, 13 );
+            ctx.fillRect(this.position.x - this.width * Math.random() * 3,
+                this.position.y + this.height * Math.random() * 3, 13, 13 );
+            ctx.fillRect(this.position.x + this.width * Math.random() * 3,
+                this.position.y + this.height * Math.random() * 3, 13, 13 );
+            ctx.fillRect(this.position.x - this.width * Math.random() * 3,
+                this.position.y - this.height * Math.random() * 3, 13, 13 );
         }
     }
     this.drawScore = function() {

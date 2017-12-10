@@ -12,10 +12,30 @@ function Squid() {
     /// Draw Object
     this.draw = function() {
         //console.log("Drawing squid");
+        /*
         ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
         ctx.fill();
         ctx.fillStyle = "black";
         //ctx.fillText("Squid", this.position.x, this.position.y-this.width);
+        */
+
+        var img = new Image();   // Create new img element
+        img.src = './images/squid.png';
+        ctx.drawImage(img, this.position.x, this.position.y, this.width, this.height);
+
+        /// Particles
+        for (var i = 0; i < 4; i++) {
+            ctx.fillStyle = "cyan";
+            ctx.fillRect(this.position.x + this.width * Math.random() * 3,
+                this.position.y - this.height * Math.random() * 3, 13, 13 );
+            ctx.fillRect(this.position.x - this.width * Math.random() * 3,
+                this.position.y + this.height * Math.random() * 3, 13, 13 );
+            ctx.fillRect(this.position.x + this.width * Math.random() * 3,
+                this.position.y + this.height * Math.random() * 3, 13, 13 );
+            ctx.fillRect(this.position.x - this.width * Math.random() * 3,
+                this.position.y - this.height * Math.random() * 3, 13, 13 );
+        }
+
     }
 
     this.ink = function() {

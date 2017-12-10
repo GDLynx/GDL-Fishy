@@ -11,9 +11,27 @@ function Eel() {
 
     /// Draw Object
     this.draw = function() {
+        var img = new Image();   // Create new img element
+        img.src = './images/eel.png';
+        ctx.drawImage(img, this.position.x, this.position.y);
+        /*
         ctx.fillStyle = "blue";
         ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
         ctx.fill();
+        */
+
+        /// Particles
+        for (var i = 0; i < 16; i++) {
+            ctx.fillStyle = "cyan";
+            ctx.fillRect(this.position.x + this.width * Math.random() * 3,
+                this.position.y - this.height * Math.random() * 3, 13, 13 );
+            ctx.fillRect(this.position.x - this.width * Math.random() * 3,
+                this.position.y + this.height * Math.random() * 3, 13, 13 );
+            ctx.fillRect(this.position.x + this.width * Math.random() * 3,
+                this.position.y + this.height * Math.random() * 3, 13, 13 );
+            ctx.fillRect(this.position.x - this.width * Math.random() * 3,
+                this.position.y - this.height * Math.random() * 3, 13, 13 );
+        }
     }
 
     /// Shock
