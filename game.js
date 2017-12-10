@@ -89,13 +89,13 @@ function update() {
     ctx.clearRect(0, 0, canvasWidth, canvasHeight);
     penguin.draw();
     penguin.drawScore();
-    ctx.font="60px Arial";
+    ctx.font="50px Arial";
     ctx.fillText("X Y: " + penguin.velocity.x + " " + penguin.velocity.y, 32, 300);
     ctx.fillText("ASpeed: " + alteredSpeed, 32, 362); // for testing
     giant.draw();
     for (var i = 0; i < collectable.length; i++) {
         collectable[i].draw();
-    }
+    } 
     for (var s = 0; s < squid.length; s++) {
         squid[s].draw();
         // console.log("Draw squid")
@@ -119,7 +119,7 @@ function update() {
     for (var e = 0; e < eel.length; e++) {
         if (eel[e].intersects(penguin)) {
             eel[e].shock();
-            alteredSpeed = 30; // [just] have to find out what this should equal to
+            alteredSpeed = 20; // [just] have to find out what this should equal to
             console.log("Shocked");
         } else {
             alteredSpeed = 0;
