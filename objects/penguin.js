@@ -14,7 +14,7 @@ function Penguin() {
     /// Get Device Orientation
     this.getDeviceOrientation = function() {
         /* alteredSpeed is used in conjuction with the "eel shock" */
-        // this.velocity.y = Math.round(event.beta) - alteredSpeed;
+        this.velocity.y = Math.round(event.beta);
         this.velocity.x = Math.round(event.gamma) - alteredSpeed;
     }
 
@@ -27,7 +27,7 @@ function Penguin() {
         if (this.position.x > canvasWidth || this.position.x < 0 ||
             this.position.y > canvasHeight || this.position.y < 0) {
             alert("Game over");
-            this.score = 0; 
+            this.score = 0;
         }
     }
 
