@@ -96,9 +96,8 @@ function update() {
     ctx.clearRect(0, 0, canvasWidth, canvasHeight);
     penguin.draw();
     penguin.drawScore();
-    ctx.font="50px Arial";
-    ctx.fillText("X Y: " + penguin.velocity.x + " " + penguin.velocity.y, 32, 300);
-    ctx.fillText("ASpeed: " + alteredSpeed, 32, 362); // for testing
+    //ctx.fillText("X Y: " + penguin.velocity.x + " " + penguin.velocity.y, 32, 300);
+    //ctx.fillText("ASpeed: " + alteredSpeed, 32, 362); // for testing
     giant.draw();
     for (var i = 0; i < collectable.length; i++) {
         collectable[i].draw();
