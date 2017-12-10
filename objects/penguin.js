@@ -14,8 +14,13 @@ function Penguin() {
     /// Get Device Orientation
     this.getDeviceOrientation = function() {
         /* alteredSpeed is used in conjuction with the "eel shock" */
-        this.velocity.y = Math.round(event.beta);
-        this.velocity.x = Math.round(event.gamma) - alteredSpeed;
+        if (this.score > 3 && this.score < 30) {
+            this.velocity.y = Math.round(event.beta) * this.score/3;
+            this.velocity.x = Math.round(event.gamma) * this.score/3 - alteredSpeed;
+        } else {
+            this.velocity.y = Math.round(event.beta);
+            this.velocity.x = Math.round(event.gamma) - alteredSpeed;
+        }
     }
 
     /// Move Object
@@ -46,7 +51,12 @@ function Penguin() {
 
     /// Draw Object
     this.draw = function() {
-        ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
+            if (this.score > 3 && this.score < 30) {
+                ctx.fillRect(this.position.x, this.position.y,
+                this.width * this.score/3, this.height * this.score/3);
+            } else {
+                ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
+            }
     }
     this.drawScore = function() {
         ctx.font = "32px Arial";
