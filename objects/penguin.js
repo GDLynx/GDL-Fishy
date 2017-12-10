@@ -1,11 +1,12 @@
 /// Penguin / Player
 //var alteredSpeed = 0;
+var startX = 200, startY = 200;
 function Penguin() {
     this.velocity = {
         x:0, y:0
     }
     this.position = {
-        x: 200, y: 100
+        x: startX, y: startY
     }
     this.width = 30;
     this.height = 30;
@@ -31,8 +32,7 @@ function Penguin() {
         /// If this exits canvas = game-over
         if (this.position.x > canvasWidth || this.position.x < 0 ||
             this.position.y > canvasHeight || this.position.y < 0) {
-            alert("Game over");
-            this.score = 0;
+                gameOver(); 
         }
     }
 
@@ -51,12 +51,12 @@ function Penguin() {
 
     /// Draw Object
     this.draw = function() {
-            if (this.score > 3 && this.score < 30) {
-                ctx.fillRect(this.position.x, this.position.y,
-                this.width * this.score/3, this.height * this.score/3);
-            } else {
-                ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
-            }
+        if (this.score > 3 && this.score < 30) {
+            ctx.fillRect(this.position.x, this.position.y,
+            this.width * this.score/3, this.height * this.score/3);
+        } else {
+            ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
+        }
     }
     this.drawScore = function() {
         ctx.font = "32px Arial";
