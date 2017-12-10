@@ -109,7 +109,7 @@ function update() {
     for (var e = 0; e < eel.length; e++) {
         if (eel[e].intersects(penguin)) {
             eel[e].shock();
-            alteredSpeed = 60;
+            alteredSpeed = 4;
             console.log("Shocked");
         } else {
             alteredSpeed = 0;
