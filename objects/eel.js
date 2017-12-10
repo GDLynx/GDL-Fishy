@@ -18,9 +18,9 @@ function Eel() {
 
     /// Shock
     this.shock = function() {
-        alert("Shocked by eel");
+        // alert("Shocked by eel");
         return true;
-    } 
+    }
 
     /// Move / Position Object
     this.move = function() {

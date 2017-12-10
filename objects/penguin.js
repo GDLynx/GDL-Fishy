@@ -1,5 +1,5 @@
 /// Penguin / Player
-var alteredSpeed = 0; 
+//var alteredSpeed = 0;
 function Penguin() {
     this.velocity = {
         x:0, y:0
@@ -13,14 +13,15 @@ function Penguin() {
 
     /// Get Device Orientation
     this.getDeviceOrientation = function() {
-        this.velocity.y = Math.round(event.beta);
-        this.velocity.x = Math.round(event.gamma);
+        /* alteredSpeed is used in conjuction with the "eel shock" */
+        this.velocity.y = Math.round(event.beta) - alteredSpeed;
+        this.velocity.x = Math.round(event.gamma) - alteredSpeed; 
     }
 
     /// Move Object
     this.move = function() { // should collision / intersection checking occur here?
-        this.position.x += this.velocity.x - alteredSpeed;
-        this.position.y += this.velocity.y - alteredSpeed;
+        this.position.x += this.velocity.x;
+        this.position.y += this.velocity.y;
     }
 
     this.intersects = function(other) {
