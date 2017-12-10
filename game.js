@@ -12,6 +12,7 @@ var alteredSpeed = 0; // used in conjuction with eel's shock
 var squid = [];
 var eel = [];
 var collectable = [];
+var giant;
 
 var timer = 0;
 function spawnFood() {
@@ -48,6 +49,7 @@ function init() {
 
     /// Create Object Instances (unsure if this should be here or in "update")
     penguin = new Penguin();
+    giant = new Giant();
     for (var s = 0; s < 3; s++) {
         //squid = new Squid();
         // squid[s] = new Squid();
@@ -70,9 +72,9 @@ function init() {
 
 function update() {
 
-
     /// Move / Update / Trigger Behavior for Object/s
     penguin.move();
+    giant.move();
     for (var i = 0; i < collectable.length; i++) {
         collectable[i].move();
     }
@@ -85,9 +87,12 @@ function update() {
 
     /// Clear canvas + draw (to an empty canvas)
     ctx.clearRect(0, 0, canvasWidth, canvasHeight);
-    ctx.fillText("X Y: " + penguin.velocity.x + " " + penguin.velocity.y, 32, 200);
     penguin.draw();
     penguin.drawScore();
+    ctx.font="60px Arial";
+    ctx.fillText("X Y: " + penguin.velocity.x + " " + penguin.velocity.y, 32, 300);
+    ctx.fillText("ASpeed: " + alteredSpeed, 32, 362); // for testing
+    giant.draw();
     for (var i = 0; i < collectable.length; i++) {
         collectable[i].draw();
     }
@@ -100,6 +105,11 @@ function update() {
     }
 
     /// Colision/s
+    if (giant.intersects(penguin)) {
+        alert("Dead");
+        penguin.score = 0;
+        giant.position.x = 0;
+    }
     for (var s = 0; s < squid.length; s++) {
         if (penguin.intersects(squid[s])) {
             squid[s].ink();
@@ -109,13 +119,13 @@ function update() {
     for (var e = 0; e < eel.length; e++) {
         if (eel[e].intersects(penguin)) {
             eel[e].shock();
-            alteredSpeed = 4;
+            alteredSpeed = 30; // [just] have to find out what this should equal to
             console.log("Shocked");
         } else {
             alteredSpeed = 0;
         }
     }
-    ctx.fillText("AlteredSpeed: " + alteredSpeed, 32, 32); // for testing
+    //ctx.fillText("AlteredSpeed: " + alteredSpeed, 32, 32); // for testing
     for (var i = 0; i < collectable.length; i++) { // between Penguin & Collectable objects
         penguin.intersects(collectable[i]);
         if (penguin.intersects(collectable[i]) && collectable.length >= 0) {
