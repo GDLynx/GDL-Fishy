@@ -23,6 +23,13 @@ function spawnFood() {
         collectable.push(new Collectable());
     }
 }
+function gameOver() {
+    penguin.position.x = startX;
+    penguin.position.y = startY;
+    giant.position.x = 0;
+    penguin.score = 0;
+    alert("Game over!");
+}
 
 /// Unsure what this does
 if (!window.requestAnimationFrame) {
@@ -95,7 +102,7 @@ function update() {
     giant.draw();
     for (var i = 0; i < collectable.length; i++) {
         collectable[i].draw();
-    } 
+    }
     for (var s = 0; s < squid.length; s++) {
         squid[s].draw();
         // console.log("Draw squid")
@@ -106,21 +113,19 @@ function update() {
 
     /// Colision/s
     if (giant.intersects(penguin)) {
-        alert("Dead");
-        penguin.score = 0;
-        giant.position.x = 0;
+        gameOver();
     }
     for (var s = 0; s < squid.length; s++) {
         if (penguin.intersects(squid[s])) {
             squid[s].ink();
-            console.log("Squid coll");
+            //console.log("Squid coll");
         }
     }
     for (var e = 0; e < eel.length; e++) {
         if (eel[e].intersects(penguin)) {
             eel[e].shock();
-            alteredSpeed = 20; // [just] have to find out what this should equal to
-            console.log("Shocked");
+            alteredSpeed = 16; // [just] have to find out what this should equal to
+            //console.log("Shocked");
         } else {
             alteredSpeed = 0;
         }
