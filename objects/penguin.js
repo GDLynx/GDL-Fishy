@@ -14,14 +14,21 @@ function Penguin() {
     /// Get Device Orientation
     this.getDeviceOrientation = function() {
         /* alteredSpeed is used in conjuction with the "eel shock" */
-        this.velocity.y = Math.round(event.beta) - alteredSpeed;
-        this.velocity.x = Math.round(event.gamma) - alteredSpeed; 
+        // this.velocity.y = Math.round(event.beta) - alteredSpeed;
+        this.velocity.x = Math.round(event.gamma) - alteredSpeed;
     }
 
     /// Move Object
     this.move = function() { // should collision / intersection checking occur here?
         this.position.x += this.velocity.x;
         this.position.y += this.velocity.y;
+
+        /// If this exits canvas = game-over
+        if (this.position.x > canvasWidth || this.position.x < 0 ||
+            this.position.y > canvasHeight || this.position.y < 0) {
+            alert("Game over");
+            this.score = 0; 
+        }
     }
 
     this.intersects = function(other) {
